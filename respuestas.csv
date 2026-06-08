@@ -1,0 +1,4 @@
+fecha;tipo_cliente;conoce_consumo;tipo_tarifa;potencia;consumo;potenciaPnt;potenciaVll;consumoPnt;consumoLln;consumoVll;periodicidad;tipo_vivienda;metros;personas;calefaccion;calefaccion_otro;cocina;cocina_otro;agua;agua_otro;nombre;telefono;email;codigo_postal
+14/05/2026 10:34;particular;;base;3.98;450;;;;;;mensual;casa;200;4;luz;;gas;;otro;a;Jose Francisco;0;a;0
+14/05/2026 10:39;empresario;si;vllp;;;20;45;34;32;36;mensual;casa;300;4;otro;a;luz;;gas;;Marianito Marianitez;0;marianito@marianitez.es;47009
+"2026-05-15 10:15:21";"particular";"";"base";"3.98";"4598";"";"";"";"";"";"bimestral";"casa";"353";"22";"luz";"";"gas";"";"otro";"awrqwew";"Toranzo delgado";"000000000";"paquito@paquitez.es";"47001"

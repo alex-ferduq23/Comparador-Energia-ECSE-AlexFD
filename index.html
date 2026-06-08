@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comparador ECSE</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="icon" type="image/x-icon" href="./LOGO_ECSE_SIN_FONDO-1920w.webp">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <script
+            loading="async"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcDg2cLpCvCqZJH2G4Tts5QxEO0LIdZUo&libraries=maps,marker"
+        ></script>
+        <style>
+            #contenedor-animacion {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 10;
+                overflow: hidden;
+                pointer-events: none;
+            }
+ 
+            #canvas-constelacion {
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: transparent;
+            }
+ 
+            main, header, footer {
+                position: relative;
+                z-index: 20;
+            }
+ 
+            body {
+                background: linear-gradient(0deg, #FFFFFF 0%, #82D1F5 29%, #005477 84%);
+                background-color: var(--fondo-pagina);
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+ 
+        <div id="contenedor-animacion">
+            <canvas id="canvas-constelacion"></canvas>
+        </div>
+ 
+        <header>
+            <nav class="cabeceraIndex">
+                <figure class="logo">
+                    <img src="./ecse-logo-blanco2.svg" alt="Logo ECSE" width="80px" height="80px">
+                </figure>
+                <p id="pHeader">ECSE Energía</p>
+            </nav>
+        </header>
+        <main>
+            <div class="index-card">
+                <h2>¿Buscas mejorar tu tarifa de luz?</h2>
+                <a href="./comparador.html" class="btn-comparar">¡Compara!</a>
+                <h2>¿Tienes alguna duda?</h2>
+                <a href="./contacto.html" class="btn-contacto">¡Contáctanos!</a>
+                <h2>¿Interesado en nuestro servicio de placas fotovoltaicas?</h2>
+                <a href="./comparaplacas.html" class="btn-contacto">¡Solicita tu presupuesto!</a>
+            </div>
+            <div class="clientesComparados">
+                <h2>Únete a nuestros clientes satisfechos</h2>
+                <p class="pIndexClientes">
+                    Más de Nº de clientes satisfechos con sus nuevas facturas de la luz.
+                </p>
+                <div class="clientesViewport">
+                    <div class="clientesTrack">
+                        <div class="clienteCard">
+                            <h3>Residencial 1</h3>
+                            <p>Ahorro de 27 € al mes en su factura eléctrica.</p>
+                        </div>
+                        <div class="clienteCard">
+                            <h3>Empresa 1</h3>
+                            <p>Reducción del 18% en costes energéticos.</p>
+                        </div>
+                        <div class="clienteCard">
+                            <h3>Residencial 2</h3>
+                            <p>Nueva tarifa con mejores condiciones y sin permanencia.</p>
+                        </div>
+                        <div class="clienteCard">
+                            <h3>Residencial 3</h3>
+                            <p>Ahorro anual estimado de 320 € en electricidad.</p>
+                        </div>
+                        <div class="clienteCard">
+                            <h3>Empresa 2</h3>
+                            <p>Optimización completa de su contrato energético.</p>
+                        </div>
+                        <div class="clienteCard">
+                            <h3>Residencial 4</h3>
+                            <p>Mejor precio y atención personalizada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="servicios-section">
+                <h2>Nuestros servicios</h2>
+                <div class="acordeon-item">
+                    <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                        <span class="acordeon-icono">☀️</span>
+                        <span class="acordeon-titulo">Energía solar</span>
+                        <span class="acordeon-flecha">▼</span>
+                    </div>
+                    <div class="acordeon-cuerpo">
+                        <p class="acordeon-texto">Instalamos paneles fotovoltaicos adaptados a tu hogar o empresa. Reduce tu factura eléctrica hasta un 70% y contribuye al medio ambiente con energía 100% limpia y renovable.</p>
+                        <div class="acordeon-img-placeholder">🌞</div>
+                    </div>
+                </div>
+                <div class="acordeon-item">
+                    <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                        <span class="acordeon-icono">⚡</span>
+                        <span class="acordeon-titulo">Comparador de tarifas</span>
+                        <span class="acordeon-flecha">▼</span>
+                    </div>
+                    <div class="acordeon-cuerpo">
+                        <p class="acordeon-texto">Analizamos tu consumo real y te presentamos las mejores ofertas del mercado. Sin permanencias, sin letra pequeña. Solo la tarifa que más te conviene.</p>
+                        <div class="acordeon-img-placeholder">📊</div>
+                    </div>
+                </div>
+                <div class="acordeon-item">
+                    <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                        <span class="acordeon-icono">🏠</span>
+                        <span class="acordeon-titulo">Auditorías energéticas</span>
+                        <span class="acordeon-flecha">▼</span>
+                    </div>
+                    <div class="acordeon-cuerpo">
+                        <p class="acordeon-texto">Auditamos el consumo de tu vivienda o negocio y te recomendamos mejoras concretas para ahorrar energía sin sacrificar comodidad.</p>
+                        <div class="acordeon-img-placeholder">🏡</div>
+                    </div>
+                </div>
+                <div class="acordeon-item">
+                    <div class="acordeon-header" onclick="toggleAcordeon(this)">
+                        <span class="acordeon-icono">🔋</span>
+                        <span class="acordeon-titulo">Aerotermia</span>
+                        <span class="acordeon-flecha">▼</span>
+                    </div>
+                    <div class="acordeon-cuerpo">
+                        <p class="acordeon-texto">¡Di adiós a la calefacción por gas! La aerotermia trae la revolución en la calefacción del hogar a través de un medio renovable y sostenible como es el aire.</p>
+                        <div class="acordeon-img-placeholder">🔋</div>
+                    </div>
+                </div>
+            </div>
+            <div class="index-card">
+                <h2>¿Nos quieres conocer? ¡Visitanos!</h2>
+                <div class="map-grid">
+                    <div id="ZAM" class="mapa">
+                        <p>Sede en Zamora | Plz Maestro Haedo 1 49003</p>
+                        <gmp-map
+                            center="41.50411267383166, -5.744639102990197"
+                            zoom="15"
+                            map-id="ZAM"
+                        >
+                            <gmp-advanced-marker
+                                position="41.50411267383166, -5.744639102990197"
+                                title="ECSE energia"></gmp-advanced-marker>
+                        </gmp-map>
+                    </div>
+                    <div id="VLL" class="mapa">
+                        <p>Oficina en Valladolid | C/Santiago 16 5ºB 47001 </p> 
+                        <gmp-map
+                            center="41.649921788415256, -4.729130520958344"
+                            zoom="15"
+                            map-id="VLL"
+                        >
+                            <gmp-advanced-marker
+                                position="41.649921788415256, -4.729130520958344"
+                                title="ECSE energia"></gmp-advanced-marker>
+                        </gmp-map>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="piePagina">
+            <p><a href="#">Privacidad</a> | <a href="contacto.html">Contacto</a></p>
+        </footer>
+                <button id="chat-btn" title="Abrir asistente">
+            <svg class="icon-chat" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+            <svg class="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+        <div id="chat-window">
+        <div class="chat-header">
+            <div class="chat-avatar">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div class="chat-header-info">
+            <h3>Asistente ComparaLuz</h3>
+            <span><i class="online-dot"></i> En línea · IA especializada en luz</span>
+            </div>
+        </div>
+        
+        <div class="api-notice" id="api-notice">
+            ⚠️ Añade tu API Key de Google AI Studio en el JS (variable <strong>API_KEY</strong>)
+        </div>
+        
+        <div class="chat-messages" id="chat-messages"></div>
+        
+        <div class="quick-suggestions" id="quick-suggestions">
+            <button class="quick-btn" onclick="sendQuick('¿Qué es el PVPC?')">¿Qué es el PVPC?</button>
+            <button class="quick-btn" onclick="sendQuick('¿Me conviene el mercado libre?')">¿Mercado libre?</button>
+            <button class="quick-btn" onclick="sendQuick('¿Cómo funciona el comparador?')">¿Cómo funciona?</button>
+        </div>
+        
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." autocomplete="off" />
+            <button id="send-btn" title="Enviar">
+            <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+        </div>
+        </div>
+        <script>
+            function toggleAcordeon(header) {
+                const item = header.parentElement;
+                item.classList.toggle('abierto');
+            }
+ 
+            const canvas = document.getElementById('canvas-constelacion');
+            const ctx = canvas.getContext('2d');
+ 
+            function ajustarPantalla() {
+                canvas.width  = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            ajustarPantalla();
+            window.addEventListener('resize', ajustarPantalla);
+ 
+            const N = 55;
+            const particulas = [];
+ 
+            for (let i = 0; i < N; i++) {
+                particulas.push({
+                    x:     Math.random() * canvas.width,
+                    y:     Math.random() * canvas.height,
+                    vx:    (Math.random() - 0.5) * 0.45,
+                    vy:    (Math.random() - 0.5) * 0.45,
+                    r:     Math.random() * 2.5 + 1.5,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+ 
+            function lerpChannel(a, b, t) {
+                return Math.round(a + (b - a) * t);
+            }
+ 
+            function getDorado(yRatio) {
+                // arriba (y=0): dorado claro #D4B97A  →  abajo (y=1): dorado oscuro #BCA164
+                const claro  = [212, 185, 122];
+                const oscuro = [188, 161, 100];
+                return [
+                    lerpChannel(claro[0], oscuro[0], yRatio),
+                    lerpChannel(claro[1], oscuro[1], yRatio),
+                    lerpChannel(claro[2], oscuro[2], yRatio)
+                ];
+            }
+ 
+            function animar() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+ 
+                // Líneas conectoras
+                for (let i = 0; i < N; i++) {
+                    for (let j = i + 1; j < N; j++) {
+                        const dx   = particulas[i].x - particulas[j].x;
+                        const dy   = particulas[i].y - particulas[j].y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 110) {
+                            const midY      = (particulas[i].y + particulas[j].y) / 2 / canvas.height;
+                            const [r, g, b] = getDorado(midY);
+                            const alpha     = 0.65 * (1 - dist / 110);
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
+                            ctx.lineWidth   = 1.4;
+                            ctx.moveTo(particulas[i].x, particulas[i].y);
+                            ctx.lineTo(particulas[j].x, particulas[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+ 
+                // Puntos
+                const t = Date.now() / 1000;
+                for (let i = 0; i < N; i++) {
+                    const p           = particulas[i];
+                    const yRatio      = p.y / canvas.height;
+                    const [r, g, b]   = getDorado(yRatio);
+                    const pulseFactor = 0.75 + 0.25 * Math.sin(t * 1.8 + p.pulse);
+ 
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r * pulseFactor, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${r},${g},${b},0.9)`;
+                    ctx.fill();
+ 
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height)  p.vy *= -1;
+                }
+ 
+                requestAnimationFrame(animar);
+            }
+            animar();
+            // ══════════════════════════════════════
+            //  ASISTENTE IA
+            // ══════════════════════════════════════
+            const API_KEY = "AQ.Ab8RN6KNwHgIb8ydzWepO2JmBGwHOG3Ay4815sUJO2B5yLcmvA"; //Aqui pones la API de la IA
+            
+            const SYSTEM_PROMPT = 
+            `Eres un asistente experto en tarifas de electricidad en España llamado "Asistente ComparaLuz".
+            Tu misión es ayudar a los usuarios a:
+            - Entender la diferencia entre el mercado regulado (PVPC) y el mercado libre
+            - Interpretar su factura de la luz
+            - Encontrar la tarifa más económica según su perfil de consumo
+            - Guiarles por el comparador de tarifas
+            
+            Reglas:
+            - Responde siempre en español
+            - Sé conciso y claro (máximo 3-4 frases por respuesta)
+            - Si el usuario pregunta algo fuera del ámbito eléctrico, redirige amablemente
+            - Usa emojis con moderación para hacer la conversación más amena
+            - Cuando sea relevante, sugiere usar el comparador de la web`;
+            // ══════════════════════════════════════
+            
+            const chatBtn      = document.getElementById('chat-btn');
+            const chatWindow   = document.getElementById('chat-window');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput    = document.getElementById('chat-input');
+            const sendBtn      = document.getElementById('send-btn');
+            const quickSugg    = document.getElementById('quick-suggestions');
+            const apiNotice    = document.getElementById('api-notice');
+            
+            let conversationHistory = [];
+            let isOpen    = false;
+            let isLoading = false;
+            
+            if (API_KEY === "TU_API_KEY_AQUI") apiNotice.classList.add('show');
+            
+            chatBtn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            chatBtn.classList.toggle('open', isOpen);
+            chatWindow.classList.toggle('visible', isOpen);
+            
+            if (isOpen && chatMessages.children.length === 0) {
+                addBotMessage("¡Hola! 👋 Soy tu asistente de tarifas de luz. Puedo ayudarte a entender tu factura, comparar el PVPC con el mercado libre o guiarte por el comparador. ¿En qué te puedo ayudar?");
+            }
+            
+            if (isOpen) setTimeout(() => chatInput.focus(), 300);
+            });
+            
+            chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+            });
+            
+            sendBtn.addEventListener('click', sendMessage);
+            
+            function sendQuick(text) {
+            chatInput.value = text;
+            sendMessage();
+            quickSugg.style.display = 'none';
+            }
+            
+            function addBotMessage(text) {
+            const div = document.createElement('div');
+            div.className = 'msg bot';
+            div.textContent = text;
+            chatMessages.appendChild(div);
+            scrollDown();
+            }
+            
+            function addUserMessage(text) {
+            const div = document.createElement('div');
+            div.className = 'msg user';
+            div.textContent = text;
+            chatMessages.appendChild(div);
+            scrollDown();
+            }
+            
+            function showTyping() {
+            const div = document.createElement('div');
+            div.className = 'typing';
+            div.id = 'typing-indicator';
+            div.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(div);
+            scrollDown();
+            }
+            
+            function removeTyping() {
+            const el = document.getElementById('typing-indicator');
+            if (el) el.remove();
+            }
+            
+            function scrollDown() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text || isLoading) return;
+            
+            chatInput.value = '';
+            isLoading = true;
+            
+            addUserMessage(text);
+            conversationHistory.push({ role: "user", parts: [{ text }] });
+            showTyping();
+            
+            try {
+                const res = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                    system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+                    contents: conversationHistory,
+                    generationConfig: { temperature: 0.7, maxOutputTokens: 300 }
+                    })
+                }
+                );
+            
+                const data = await res.json();
+                console.log('Status HTTP:', res.status);
+                console.log('Respuesta:', JSON.stringify(data, null, 2));
+                removeTyping();
+            
+                if (data.candidates?.[0]) {
+                const reply = data.candidates[0].content.parts[0].text;
+                conversationHistory.push({ role: "model", parts: [{ text: reply }] });
+                addBotMessage(reply);
+                } else {
+                addBotMessage("Lo siento, ha ocurrido un error. Por favor inténtalo de nuevo.");
+                }
+            
+            } catch (err) {
+                removeTyping();
+                addBotMessage("No he podido conectarme. Revisa tu conexión o la API Key.");
+            }
+            
+            isLoading = false;
+            chatInput.focus();
+            }
+        </script>
+    </body>
+</html>

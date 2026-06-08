@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comparador ECSE</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="icon" type="image/x-icon" href="./LOGO_ECSE_SIN_FONDO-1920w.webp">
+    </head>
+
+    <body>
+        <header>
+            <nav class="cabecera">
+                <a href="./index.html">
+                    <figure class="logo">
+                        <img src="./ecse-logo-blanco2.svg" alt="Logo ECSE" width="72px" height="72px">
+                    </figure>
+                </a>
+                <a href="./index.html" class="btn-comparar">Inicio</a>
+            </nav>
+        </header>
+
+        <div class="comparador-hero">
+            <h1>Compara ofertas de luz actuales en <span id="mes-anio"></span></h1>
+        </div>
+
+        <form class="form-container" id="formulario">
+            <div class="form-card">
+                
+                <div class="progress-container">
+                    <div class="progress-line"></div>
+                    <div class="progress-line-fill" id="progress-fill"></div>
+                    <div class="step-node active" data-step="1">1</div>
+                    <div class="step-node" data-step="2">2</div>
+                    <div class="step-node" data-step="3">3</div>
+                    <div class="step-node" data-step="4">4</div>
+                </div>
+
+                <div class="form-step active-step" data-step="1">
+                    <p class="form-section-title">Datos del Cliente</p>
+                    <div class="field-group">
+                        <label>Tipo de cliente</label>
+                        <div class="toggle-group toggle-group-2">
+                            <button type="button" class="toggle-btn" id="btn-residencial" onclick="setTipoCliente('Residencial')">Residencial</button>
+                            <button type="button" class="toggle-btn" id="btn-pyme" onclick="setTipoCliente('PYME/Gran Empresa')">PYME / Gran Empresa</button>
+                        </div>
+                        <input type="hidden" name="tipo_cliente" id="tipo_cliente" value="Residencial">
+                    </div>
+
+                    <div class="field-group sub-condicional" id="sub-residencial">
+                        <label>Tipo de vivienda</label>
+                        <div class="toggle-group toggle-group-2">
+                            <button type="button" class="toggle-btn" id="btn-casa" onclick="setTipoEstructura('Casa')">Casa</button>
+                            <button type="button" class="toggle-btn" id="btn-piso" onclick="setTipoEstructura('Piso')">Piso</button>
+                        </div>
+                        <input type="hidden" name="tipo_estructura" id="tipo_estructura" value="Casa">
+                    </div>
+
+                    <div class="field-group sub-condicional" id="sub-pyme" style="display: none;">
+                        <label for="detalle_local">Describa su tipo de local o actividad</label>
+                        <input type="text" id="detalle_local" name="detalle_local" placeholder="Ej. Nave industrial, local comercial, oficina...">
+                    </div>
+
+                    <div class="step-buttons">
+                        <button type="button" class="btn-nav btn-next" onclick="nextStep(1)">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="2">
+                    <p class="form-section-title">Datos de tu factura actual</p>
+                    
+                    <div class="field-group">
+                        <label>Tipo de tarifa actual</label>
+                        <div class="toggle-group toggle-group-2">
+                            <button type="button" class="toggle-btn" id="btn-libre" onclick="setTipoMercado('Mercado Libre')">Mercado Libre</button>
+                            <button type="button" class="toggle-btn" id="btn-regulado" onclick="setTipoMercado('Mercado Regulado')">Mercado Regulado</button>
+                        </div>
+                        <input type="hidden" name="tipo_mercado" id="tipo_mercado" value="Mercado Libre">
+                    </div>
+
+                    <div class="field-group">
+                        <label for="precio_factura">Precio total de tu última factura (€)</label>
+                        <input type="number" id="precio_factura" name="precio_factura" step="0.01" placeholder="Ej. 74.50">
+                    </div>
+
+                    <div class="field-group">
+                        <label>¿Dispone de bono social eléctrico?</label>
+                        <div class="toggle-group toggle-group-2">
+                            <button type="button" class="toggle-btn" id="btn-bono-si" onclick="setBonoSocial('Sí')">Sí</button>
+                            <button type="button" class="toggle-btn" id="btn-bono-no" onclick="setBonoSocial('No')">No</button>
+                        </div>
+                        <input type="hidden" name="bono_social" id="bono_social" value="No">
+                    </div>
+
+                    <div class="field-group">
+                        <label for="fichero_factura" class="file-upload-label">Adjuntar copia de tu factura (PDF o Imagen)</label>
+                        <input type="file" id="fichero_factura" name="fichero_factura" accept=".pdf,image/*">
+                    </div>
+
+                    <div class="step-buttons">
+                        <button type="button" class="btn-nav btn-prev" onclick="prevStep(2)">Anterior</button>
+                        <button type="button" class="btn-nav btn-next" onclick="nextStep(2)">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="3">
+                    <p class="form-section-title">Estudio fotovoltaico</p>
+                    <div class="field-group central-box">
+                        <label class="question-highlight">¿Te gustaría solicitar un presupuesto solar gratuito?</label>
+                        <div class="toggle-group toggle-group-2">
+                            <button type="button" class="toggle-btn" id="btn-solar-si" onclick="setPresupuestoSolar('Sí')">Sí</button>
+                            <button type="button" class="toggle-btn" id="btn-solar-no" onclick="setPresupuestoSolar('No')">No</button>
+                        </div>
+                        <input type="hidden" name="solicita_solar" id="solicita_solar" value="No">
+                    </div>
+
+                    <div class="step-buttons">
+                        <button type="button" class="btn-nav btn-prev" onclick="prevStep(3)">Anterior</button>
+                        <button type="button" class="btn-nav btn-next" onclick="nextStep(3)">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="4">
+                    <p class="form-section-title">Datos de contacto</p>
+                    <div class="field-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="telefono">Teléfono de contacto</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej. 600123456" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="codpos">Código postal</label>
+                        <input type="text" id="codpos" name="codpos" placeholder="Ej. 49003" required>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button type="button" class="btn-nav btn-prev" onclick="prevStep(4)">Anterior</button>
+                        <button type="button" class="btn-submit" id="btn-enviar" onclick="enviarFormulario()">Enviar solicitud</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        <script>
+            // Fecha automática del Hero (Protegida contra valores null)
+            const elMesAnio = document.getElementById("mes-anio");
+            if (elMesAnio) {
+                const fecha = new Date();
+                const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                elMesAnio.innerText = `${meses[fecha.getMonth()]} de ${fecha.getFullYear()}`;
+            }
+
+            // Controladores de estado de botones dinámicos
+            function setTipoCliente(valor) {
+                document.getElementById('tipo_cliente').value = valor;
+                document.getElementById('btn-residencial').classList.toggle('active', valor === 'Residencial');
+                document.getElementById('btn-pyme').classList.toggle('active', valor === 'PYME/Gran Empresa');
+                
+                if(valor === 'Residencial') {
+                    document.getElementById('sub-residencial').style.display = 'block';
+                    document.getElementById('sub-pyme').style.display = 'none';
+                } else {
+                    document.getElementById('sub-residencial').style.display = 'none';
+                    document.getElementById('sub-pyme').style.display = 'block';
+                }
+            }
+
+            function setTipoEstructura(valor) {
+                document.getElementById('tipo_estructura').value = valor;
+                document.getElementById('btn-casa').classList.toggle('active', valor === 'Casa');
+                document.getElementById('btn-piso').classList.toggle('active', valor === 'Piso');
+            }
+
+            function setTipoMercado(valor) {
+                document.getElementById('tipo_mercado').value = valor;
+                document.getElementById('btn-libre').classList.toggle('active', valor === 'Mercado Libre');
+                document.getElementById('btn-regulado').classList.toggle('active', valor === 'Mercado Regulado');
+            }
+
+            function setBonoSocial(valor) {
+                document.getElementById('bono_social').value = valor;
+                document.getElementById('btn-bono-si').classList.toggle('active', valor === 'Sí');
+                document.getElementById('btn-bono-no').classList.toggle('active', valor === 'No');
+            }
+
+            function setPresupuestoSolar(valor) {
+                document.getElementById('solicita_solar').value = valor;
+                document.getElementById('btn-solar-si').classList.toggle('active', valor === 'Sí');
+                document.getElementById('btn-solar-no').classList.toggle('active', valor === 'No');
+            }
+
+            // Lógica del multi-step
+            function actualizarProgreso(step) {
+                document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active-step'));
+                document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active-step');
+
+                document.querySelectorAll('.step-node').forEach(node => {
+                    const nodeStep = parseInt(node.getAttribute('data-step'));
+                    node.classList.toggle('active', nodeStep === step);
+                    node.classList.toggle('completed', nodeStep < step);
+                });
+
+                const fillPercentages = { 1: 0, 2: 33, 3: 66, 4: 100 };
+                document.getElementById('progress-fill').style.width = `${fillPercentages[step]}%`;
+            }
+
+            function nextStep(currentStep) {
+                if (currentStep === 4) return;
+                actualizarProgreso(currentStep + 1);
+            }
+
+            function prevStep(currentStep) {
+                if (currentStep === 1) return;
+                actualizarProgreso(currentStep - 1);
+            }
+
+            // Mapeo e inserción de datos en base de datos (Supabase)
+            async function enviarFormulario() {
+                const form = document.getElementById('formulario');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                const btnSubmit = document.getElementById('btn-enviar');
+                btnSubmit.disabled = true;
+                btnSubmit.innerText = 'Procesando...';
+
+                // URL y API KEY Verificadas
+                const SUPABASE_URL = "https://hbwbjqgftuiecnkpkyls.supabase.co";
+                const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhid2JqcWdmdHVpZWNua3BreWxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjI0MTYsImV4cCI6MjA5Mzc5ODQxNn0.14VZEudlZZ2455ftsI1u1h7HcLRp1B1c9C-tUdoCJeU"; 
+
+                const getVal = (id) => document.getElementById(id)?.value;
+                const tipoClienteActual = getVal('tipo_cliente');
+
+                const datos = {
+                    tipo_cliente:   tipoClienteActual,
+                    vivienda_tipo:  tipoClienteActual === 'Residencial' ? getVal('tipo_estructura') : null,
+                    detalle_local:  tipoClienteActual === 'PYME/Gran Empresa' ? getVal('detalle_local') : null,
+                    tipo_tarifa:    getVal('tipo_mercado'),
+                    precio_factura: getVal('precio_factura') ? parseFloat(getVal('precio_factura')) : null,
+                    bono_social:    getVal('bono_social'),
+                    solicita_solar: getVal('solicita_solar'),
+                    nombre:         getVal('nombre'),
+                    telefono:       getVal('telefono'),
+                    email:          getVal('email'),
+                    codigo_postal:  getVal('codpos') // Mantiene exactamente el ID de tu input "codpos"
+                };
+
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/tabla_todo`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`,
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify(datos)
+                    });
+
+                    if (response.ok) {
+                        window.location.href = './gracias.html';
+                    } else {
+                        const error = await response.json();
+                        console.error('Error Supabase:', error);
+                        alert('Hubo un error al guardar los datos en Supabase.');
+                    }
+                } catch (err) {
+                    console.error('Error de red detectado:', err);
+                    alert('No se pudo establecer conexión con Supabase. Revisa si el proyecto está activo o pausado.');
+                } finally {
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerText = 'Enviar solicitud';
+                }
+            }
+        </script>
+    </body>
+</html>

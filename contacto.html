@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comparador ECSE</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="icon" type="image/x-icon" href="./LOGO_ECSE_SIN_FONDO-1920w.webp">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <nav class="cabecera">
+                <a href="./index.html">
+                    <figure class="logo">
+                        <img src="./ecse-logo-blanco2.svg" alt="Logo ECSE" width="72px" height="72px">
+                    </figure>
+                </a>
+                <a href="./index.html" class="btn-comparar">Inicio</a>
+            </nav>
+        </header>
+        <div class="comparador-hero">
+            <h1>Cuentanos tus dudas ¡Te ayudaremos!</h1>
+        </div>
+        <form id="formulario-contacto" action="https://formspree.io/f/mjgldnoe" method="POST" class="form-container">
+            <div class="form-card">
+                <div class="field-group">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre y apellidos">
+                </div>
+                <div class="field-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Ej: 600 000 000" maxlength="9">
+                </div>
+                <div class="field-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com">
+                </div>
+                <div class="field-group">
+                    <label for="comentario">Comentario</label>
+                    <textarea name="comentario" id="comentario" cols="77" rows="15" placeholder="Aquí tus dudas"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">
+                    Contactar
+                </button>
+            </div>
+        </form>
+        
+        <footer class="piePagina">
+            <p><a href="#">Privacidad</a> | <a href="./contacto.html">Contacto</a></p>
+        </footer>
+
+        <script>
+                const form = document.getElementById('formulario-contacto');
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const data = new FormData(form);
+                    fetch('https://formspree.io/f/mjgldnoe', {
+                        method: 'POST',
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(function(response) {
+                        if (response.ok) {
+                            window.location.href = './gracias.html';
+                        } else {
+                            alert('Hubo un error al enviar el formulario. Inténtalo de nuevo.');
+                        }
+                    })
+                    .catch(function() {
+                        alert('Error de conexión. Comprueba tu internet e inténtalo de nuevo.');
+                    });
+                });
+        </script>
+    </body>
+</html>

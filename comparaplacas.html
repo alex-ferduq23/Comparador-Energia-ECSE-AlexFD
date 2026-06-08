@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comparador ECSE Solar</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="icon" type="image/x-icon" href="./LOGO_ECSE_SIN_FONDO-1920w.webp">
+    </head>
+    <body>
+        <header>
+            <nav class="cabecera">
+                <a href="./index.html">
+                    <figure class="logo">
+                        <img src="./ecse-logo-blanco2.svg" alt="Logo ECSE" width="72" height="72">
+                    </figure>
+                </a>
+                <a href="./index.html" class="btn-comparar">Inicio</a>
+            </nav>
+        </header>
+
+        <div class="comparador-hero">
+            <h1>Pide tu presupuesto para instalaciones solares</h1>
+        </div>
+
+        <form class="form-container" id="formulario">
+            <div class="form-card">
+                
+                <div class="progress-container">
+                    <div class="progress-line"></div>
+                    <div class="progress-line-fill" id="progress-fill"></div>
+                    <div class="step-node active" data-step="1">1</div>
+                    <div class="step-node" data-step="2">2</div>
+                    <div class="step-node" data-step="3">3</div>
+                </div>
+
+                <div class="form-step active-step" id="paso-1">
+                    <p class="form-section-title">Datos básicos</p>
+                    <div class="field-group">
+                        <label for="tipo-cliente">Tipo de cliente</label>
+                        <div class="toggle-group">
+                            <button type="button" class="toggle-btn" onclick="seleccionarToggle(this, 'tipo-cliente', 'Particular')">Particular</button>
+                            <button type="button" class="toggle-btn" onclick="seleccionarToggle(this, 'tipo-cliente', 'Empresario')">Empresario</button>
+                            <button type="button" class="toggle-btn" onclick="seleccionarToggle(this, 'tipo-cliente', 'Comunidad')">Comunidad</button>
+                        </div>
+                        <input type="hidden" id="tipo-cliente" name="tipo_cliente" required>
+                    </div>
+                    
+                    <div class="field-group" id="grupo-fecha-especifica">
+                        <label for="fecha-especifica">Especifica la fecha de instalación</label>
+                        <input type="date" id="fecha-especifica" name="especificar_fecha">
+                    </div>
+
+                    <div class="field-group">
+                        <label for="metros">m² de la vivienda</label>
+                        <input type="number" id="metros" name="m2_vivienda" min="1" placeholder="Ej: 120" required>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button type="button" class="btn-nav btn-next" onclick="validarYNavegar(2)">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="paso-2">
+                    <p class="form-section-title">Características del tejado</p>
+                    <div class="field-group">
+                        <label for="tipo-tejado">Tipo de tejado</label>
+                        <select id="tipo-tejado" name="tipo_tejado" required>
+                            <option value="">Selecciona un tipo de tejado</option>
+                            <option value="Cubierta plana">Cubierta plana</option>
+                            <option value="Cubierta inclinada">Cubierta inclinada</option>
+                            <option value="Pared / superficie vertical">Pared / superficie vertical</option>
+                            <option value="Otros">Otros</option>
+                            <option value="NoSabe">No lo sé</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group" id="grupo-tejado-otros" style="display:none;">
+                        <label for="tejado-otros">Especifica el tipo de tejado</label>
+                        <input type="text" id="tejado-otros" name="otros_tejado" placeholder="Ej: Tejado curvo, pérgola, suelo...">
+                    </div>
+
+                    <div class="field-group">
+                        <label for="orientacion-tejado">Orientación del tejado</label>
+                        <select id="orientacion-tejado" name="orientacion_tejado">
+                            <option value="">Selecciona una orientación</option>
+                            <option value="Norte">Norte</option>
+                            <option value="Sur">Sur</option>
+                            <option value="Este">Este</option>
+                            <option value="Oeste">Oeste</option>
+                            <option value="Noreste">Noreste</option>
+                            <option value="Noroeste">Noroeste</option>
+                            <option value="Sureste">Sureste</option>
+                            <option value="Suroeste">Suroeste</option>
+                            <option value="NoSabe">No lo sé</option>
+                        </select>
+                    </div>
+
+                    <p class="form-section-title">Consumo y financiación</p>
+                    <div class="field-group">
+                        <label for="consumo-anual">Consumo energético anual en kWh</label>
+                        <input type="number" id="consumo-anual" name="consumo" min="0" placeholder="Ej: 4500" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="compania-actual">Compañía actual</label>
+                        <select id="compania-actual" name="compañia" required>
+                            <option value="">Selecciona una compañía</option>
+                            <option value="Iberdrola">Iberdrola</option>
+                            <option value="Endesa">Endesa</option>
+                            <option value="Naturgy">Naturgy</option>
+                            <option value="Repsol">Repsol</option>
+                            <option value="TotalEnergies">TotalEnergies</option>
+                            <option value="Holaluz">Holaluz</option>
+                            <option value="Octopus Energy">Octopus Energy</option>
+                            <option value="NoSabe">No lo sé</option>
+                            <option value="Otra">Otra</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group" id="grupo-compania-otra" style="display:none;">
+                        <label for="compania-otra">¿Cuál es tu compañía actual?</label>
+                        <input type="text" id="compania-otra" name="compañia_otros" placeholder="Ej: EnergyAvanti, Lucera, PVPC...">
+                    </div>
+
+                    <div class="field-group">
+                        <label for="tipo-financiacion">Tipo de financiación</label>
+                        <select id="tipo-financiacion" name="tipo_financiador" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="Pago al contado">Pago al contado</option>
+                            <option value="Financiación">Financiación</option>
+                            <option value="Alquiler">Alquiler</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="instalar-baterias">¿Instalar baterías?</label>
+                        <div class="toggle-group">
+                            <button type="button" class="toggle-btn" onclick="seleccionarToggle(this, 'instalar-baterias', 'true')">Sí</button>
+                            <button type="button" class="toggle-btn" onclick="seleccionarToggle(this, 'instalar-baterias', 'false')">No</button>
+                        </div>
+                        <input type="hidden" id="instalar-baterias" name="instalar_baterias" required>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button type="button" class="btn-nav btn-back" onclick="navegarPaso(1)">Anterior</button>
+                        <button type="button" class="btn-nav btn-next" onclick="validarYNavegar(3)">Siguiente</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="paso-3">
+                    <p class="form-section-title">Información adicional</p>
+                    <div class="field-group">
+                        <label for="informacion-adicional">Información adicional que el cliente quiera aportar</label>
+                        <textarea id="informacion-adicional" name="info_adicional" rows="6" placeholder="Indica cualquier detalle relevante..."></textarea>
+                    </div>
+
+                    <p class="form-section-title">Datos de contacto</p>
+                    <div class="field-group">
+                        <label for="direccion-calle">Calle</label>
+                        <input type="text" id="direccion-calle" name="calle" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="direccion-numero">Número</label>
+                        <input type="text" id="direccion-numero" name="numero" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="codpos">Código Postal</label>
+                        <input type="text" id="codpos" name="cod_post" maxlength="5" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="telefono">Número de teléfono</label>
+                        <input type="tel" id="telefono" name="tlfn" maxlength="9" required>
+                    </div>
+
+                    <div class="field-group checkbox-group" style="margin-top: 20px; margin-bottom: 20px;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: var(--azul-oscuro); cursor: pointer; line-height: 1.4;">
+                            <input type="checkbox" id="acepta-privacidad" style="margin-top: 3px; transform: scale(1.1); cursor: pointer;">
+                            <span>Acepto la <a href="./privacidad.html" target="_blank" style="color: var(--azul-oscuro); font-weight: 700; text-decoration: underline;">política de privacidad</a> y el tratamiento de mis datos para la solicitud de presupuesto.</span>
+                        </label>
+                    </div>
+
+                    <div class="step-buttons">
+                        <button type="button" class="btn-nav btn-back" onclick="navegarPaso(2)">Anterior</button>
+                        <button type="submit" class="btn-submit" id="btn-submit" style="margin-top:0; width:auto;">
+                            Solicitar presupuesto
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        <footer class="piePagina">
+            <p><a href="#">Privacidad</a> | <a href="./contacto.html">Contacto</a></p>
+        </footer>
+        
+        <script>
+            // CONFIGURACIÓN SUPABASE
+            const SUPABASE_URL = 'https://hbwbjqgftuiecnkpkyls.supabase.co';
+            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhid2JqcWdmdHVpZWNua3BreWxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMjI0MTYsImV4cCI6MjA5Mzc5ODQxNn0.14VZEudlZZ2455ftsI1u1h7HcLRp1B1c9C-tUdoCJeU';
+
+            // ===================================================
+            // LÓGICA DE CONTROL DE PASOS (SISTEMA MULTI-STEP)
+            // ===================================================
+            let pasoActual = 1;
+            const totalPasos = 3;
+
+            // Valida los inputs del paso actual antes de avanzar
+            function validarYNavegar(nuevoPaso) {
+                if (nuevoPaso > pasoActual) {
+                    const contenedorPaso = document.getElementById(`paso-${pasoActual}`);
+                    const inputs = contenedorPaso.querySelectorAll('input[required], select[required], textarea[required]');
+                    
+                    for (let input of inputs) {
+                        if (!input.value.trim()) {
+                            // Si es el input hidden del toggle, avisamos amigablemente
+                            if (input.type === 'hidden') {
+                                alert('Por favor, selecciona una de las opciones disponibles antes de continuar.');
+                            } else {
+                                input.reportValidity();
+                            }
+                            return; // Frena la navegación si falta un dato requerido
+                        }
+                    }
+                }
+                navegarPaso(nuevoPaso);
+            }
+
+            function navegarPaso(nuevoPaso) {
+                if (nuevoPaso < 1 || nuevoPaso > totalPasos) return;
+                
+                document.getElementById(`paso-${pasoActual}`).classList.remove('active-step');
+                document.getElementById(`paso-${nuevoPaso}`).classList.add('active-step');
+                
+                pasoActual = nuevoPaso;
+                actualizarBarraProgreso();
+                
+                document.getElementById('formulario').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            function actualizarBarraProgreso() {
+                const porcentaje = ((pasoActual - 1) / (totalPasos - 1)) * 100;
+                document.getElementById('progress-fill').style.width = `${porcentaje}%`;
+
+                document.querySelectorAll('.step-node').forEach(nodo => {
+                    const pasoNodo = parseInt(nodo.getAttribute('data-step'));
+                    
+                    nodo.classList.remove('active', 'completed');
+                    
+                    if (pasoNodo === pasoActual) {
+                        nodo.classList.add('active');
+                    } else if (pasoNodo < pasoActual) {
+                        nodo.classList.add('completed');
+                        nodo.innerHTML = '✓';
+                    } else {
+                        nodo.innerHTML = pasoNodo;
+                    }
+                });
+            }
+
+            // Control de Toggles visuales
+            function seleccionarToggle(botonActivo, idInputHidden, valor) {
+                const contenedor = botonActivo.parentElement;
+                const botones = contenedor.querySelectorAll('.toggle-btn');
+                botones.forEach(btn => btn.classList.remove('active'));
+                botonActivo.classList.add('active');
+                document.getElementById(idInputHidden).value = valor;
+            }
+
+            // Listeners para campos dependientes
+            const selectTejado = document.getElementById('tipo-tejado');
+            const grupoTejadoOtros = document.getElementById('grupo-tejado-otros');
+            const inputTejadoOtros = document.getElementById('tejado-otros');
+
+            selectTejado.addEventListener('change', function() {
+                if (this.value === 'Otros') {
+                    grupoTejadoOtros.style.display = 'block';
+                    inputTejadoOtros.required = true;
+                } else {
+                    grupoTejadoOtros.style.display = 'none';
+                    inputTejadoOtros.required = false;
+                    inputTejadoOtros.value = '';
+                }
+            });
+
+            const selectCompania = document.getElementById('compania-actual');
+            const grupoCompaniaOtra = document.getElementById('grupo-compania-otra');
+            const inputCompaniaOtra = document.getElementById('compania-otra');
+
+            selectCompania.addEventListener('change', function() {
+                if (this.value === 'Otra') {
+                    grupoCompaniaOtra.style.display = 'block';
+                    inputCompaniaOtra.required = true;
+                } else {
+                    grupoCompaniaOtra.style.display = 'none';
+                    inputCompaniaOtra.required = false;
+                    inputCompaniaOtra.value = '';
+                }
+            });
+
+            /* ---- PROCESAMIENTO Y ENVÍO A SUPABASE ---- */
+            const formulario = document.getElementById('formulario');
+            const btnSubmit = document.getElementById('btn-submit');
+
+            formulario.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // VALIDACIÓN DE LA CASILLA RGPD
+                const privacidadCheck = document.getElementById('acepta-privacidad');
+                if (!privacidadCheck || !privacidadCheck.checked) {
+                    alert('Debes aceptar la política de privacidad para poder continuar.');
+                    privacidadCheck?.focus();
+                    return;
+                }
+
+                btnSubmit.disabled = true;
+                btnSubmit.innerText = 'Guardando solicitud...';
+
+                const get = (id) => (document.getElementById(id)?.value || '').trim();
+                
+                const parseNum = (id) => {
+                    const val = get(id);
+                    return val ? parseInt(val, 10) : null;
+                };
+
+                let tipoClienteRaw = get('tipo-cliente');
+                let tipoClienteVal = tipoClienteRaw ? tipoClienteRaw.toLowerCase() : null;
+
+                const datos = {
+                    tipo_cliente:       tipoClienteVal,
+                    fecha_instalar:     get('fecha-instalacion') || null,
+                    especificar_fecha:  get('fecha-especifica') || null, // <--- Solo esta, limpia.
+                    m2_vivienda:        parseNum('metros'),
+                    tipo_tejado:        get('tipo-tejado') || null,
+                    otros_tejado:       get('tejado-otros') || null,
+                    orientacion_tejado: get('orientacion-tejado') || null,
+                    consumo:            parseNum('consumo-anual'),
+                    compañia:           get('compania-actual') || null,
+                    compañia_otros:     get('compania-otra') || null,
+                    tipo_financiacion:  get('tipo-financiacion') || null, 
+                    instalar_baterias:  get('instalar-baterias') === 'true',
+                    info_adicional:     get('informacion-adicional') || null,
+                    calle:              get('direccion-calle') || null,
+                    numero:             get('direccion-numero') || null,
+                    cod_post:           get('codpos') || null,
+                    nombre:             get('nombre') || null,
+                    email:              get('email') || null,
+                    tlfn:               get('telefono') || null
+                };
+
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/rest/v1/tabla_solares`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': SUPABASE_KEY,
+                            'Authorization': `Bearer ${SUPABASE_KEY}`,
+                            'Prefer': 'return=minimal'
+                        },
+                        body: JSON.stringify(datos)
+                    });
+
+                    if (response.ok) {
+                        window.location.href = './gracias.html';
+                    } else {
+                        const errorData = await response.json();
+                        console.error('Error detectado en Supabase:', errorData);
+                        alert('Error al guardar en la base de datos. Verifica los datos introducidos.');
+                    }
+                } catch (err) {
+                    console.error('Error de red/conexión:', err);
+                    alert('Error de conexión: No se pudo establecer contacto con el servidor. Revisa tu conexión a internet.');
+                } finally {
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerText = 'Solicitar presupuesto';
+                }
+            });
+        </script>
+    </body>
+</html>
