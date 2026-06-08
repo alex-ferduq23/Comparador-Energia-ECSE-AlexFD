@@ -57,7 +57,7 @@
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     const data = new FormData(form);
-                    fetch('https://formspree.io/f/mjgldnoe', {
+                    fetch('https://formspree.io/f/mjgldnoe', { //Poner URL a donde se requiera que lleguen los datos
                         method: 'POST',
                         body: data,
                         headers: {
